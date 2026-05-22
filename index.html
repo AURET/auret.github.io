@@ -278,6 +278,8 @@
   .stock i { width:6px; height:6px; border-radius:50%; flex:none; background:#46b06e; box-shadow:0 0 0 0 rgba(70,176,110,0.55); animation:stockpulse 2.6s ease-out infinite; }
   @keyframes stockpulse { 0%{box-shadow:0 0 0 0 rgba(70,176,110,0.55);} 70%{box-shadow:0 0 0 7px rgba(70,176,110,0);} 100%{box-shadow:0 0 0 0 rgba(70,176,110,0);} }
   @media (prefers-reduced-motion:reduce){ .stock i{ animation:none; } }
+  .stock.out i { background:#b5544e; animation:none; box-shadow:none; }
+  .order.disabled { background:var(--muted); border-color:var(--muted); opacity:0.5; pointer-events:none; }
 
   .dupeline { margin-top:7px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; letter-spacing:0.03em; color:var(--gold); }
   .inspby { font-size:8px; letter-spacing:0.13em; text-transform:uppercase; }
@@ -592,17 +594,17 @@
 
   const I18N = {
     fr: { sub:'Spray Naturel', tag:'Eau de Parfum · 10 ml · Pur & Naturel', him:'Pour Lui', her:'Pour Elle',
-          cmeta:'Spray Naturel · Eau de Parfum · 10 ml', order:'Commander', cur:'DH', stock:'En stock', insp:'Inspiré des plus grandes maisons de parfum', insp2:'Inspiré de',
+          cmeta:'Spray Naturel · Eau de Parfum · 10 ml', order:'Commander', cur:'DH', stock:'En stock', stockOut:'Rupture de stock', insp:'Inspiré des plus grandes maisons de parfum', insp2:'Inspiré de',
           soonH:'Parfums pour Elle', soonP:'De nouveaux parfums AURET pour femmes — bientôt disponibles.',
           f1:'Ingrédients Naturels', f2:'Haute Qualité', f3:'Tenue Longue Durée',
           msg:'Bonjour, je souhaite commander AURET ' },
     en: { sub:'Natural Spray', tag:'Eau de Parfum · 10 ml · Pure & Natural', him:'For Him', her:'For Her',
-          cmeta:'Natural Spray · Eau de Parfum · 10 ml', order:'Order Now', cur:'DH', stock:'In Stock', insp:'Inspired by the finest fragrance houses', insp2:'Inspired by',
+          cmeta:'Natural Spray · Eau de Parfum · 10 ml', order:'Order Now', cur:'DH', stock:'In Stock', stockOut:'Out of Stock', insp:'Inspired by the finest fragrance houses', insp2:'Inspired by',
           soonH:'Fragrances for Her', soonP:'New AURET scents for women — arriving very soon.',
           f1:'Natural Ingredients', f2:'Premium Quality', f3:'Long-Lasting Fragrance',
           msg:'Hello, I would like to order AURET ' },
     ar: { sub:'سبراي طبيعي', tag:'أو دو بارفان · 10 مل · نقي وطبيعي', him:'للرجال', her:'للنساء',
-          cmeta:'سبراي طبيعي · أو دو بارفان · 10 مل', order:'اطلب الآن', cur:'د.م', stock:'متوفّر', insp:'مستوحى من أرقى دور العطور العالمية', insp2:'مستوحى من',
+          cmeta:'سبراي طبيعي · أو دو بارفان · 10 مل', order:'اطلب الآن', cur:'د.م', stock:'متوفّر', stockOut:'نفد المخزون', insp:'مستوحى من أرقى دور العطور العالمية', insp2:'مستوحى من',
           soonH:'عطور للنساء', soonP:'عطور AURET جديدة للنساء — قريباً جداً.',
           f1:'مكوّنات طبيعية', f2:'جودة عالية', f3:'ثبات طويل الأمد',
           msg:'السلام، بغيت نطلب AURET ' }
@@ -612,6 +614,8 @@
     document.querySelectorAll(sel).forEach(function (e) { e.textContent = val; });
   }
 
+  const OUT_OF_STOCK = ['Imagination'];
+
   function setLang(lang) {
     const t = I18N[lang];
     setText('.head .sub', t.sub);
@@ -620,7 +624,17 @@
     document.querySelector('.tab[data-cat="her"]').textContent = t.her;
     setText('.cmeta', t.cmeta);
     setText('.order', t.order);
-    setText('.stock-txt', t.stock);
+    document.querySelectorAll('.card').forEach(function (card) {
+      var od = card.querySelector('.order');
+      var out = od && OUT_OF_STOCK.indexOf(od.dataset.name) !== -1;
+      var st = card.querySelector('.stock');
+      if (st) {
+        st.classList.toggle('out', out);
+        var stx = st.querySelector('.stock-txt');
+        if (stx) stx.textContent = out ? t.stockOut : t.stock;
+      }
+      if (od) od.classList.toggle('disabled', out);
+    });
     setText('.dupeline', t.insp);
     setText('.insp-pre', t.insp2);
     const soonH = document.querySelector('.soon h3'); if (soonH) soonH.textContent = t.soonH;
@@ -720,6 +734,9 @@
     ord.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent('السلام، بغيت نطلب AURET ' + currentProduct);
     ord.target = '_blank';
     ord.rel = 'noopener';
+    const outOfStock = OUT_OF_STOCK.indexOf(currentProduct) !== -1;
+    ord.classList.toggle('disabled', outOfStock);
+    if (outOfStock) ord.textContent = t.stockOut;
   }
 
   function openModal(name, imgSrc, house) {
