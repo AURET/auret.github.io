@@ -225,6 +225,32 @@
   .row-btn.del { color:#f3a5a5; border-color: rgba(243,165,165,.3); }
   .row-btn.del:hover { background: rgba(243,165,165,.1); }
 
+  /* stock */
+  .stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 12px; }
+  .stock-card { padding: 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .stock-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: #e6cf9e; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .stock-ctrl { display: flex; align-items: center; gap: 6px; }
+  .stock-btn {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: rgba(201,168,120,0.15); border: 1px solid rgba(201,168,120,0.4);
+    color: #e6cf9e; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background .15s; flex-shrink: 0;
+  }
+  .stock-btn:hover { background: rgba(201,168,120,0.3); }
+  .stock-num {
+    width: 52px; text-align: center;
+    background: rgba(8,8,12,0.6); border: 1px solid rgba(201,168,120,0.3);
+    color: #f1ead9; border-radius: 8px; padding: 4px 6px; font-size: 18px; font-weight: 600;
+  }
+  .stock-num:focus { outline: none; border-color: rgba(201,168,120,0.75); }
+  .stock-badge {
+    font-size: 11px; letter-spacing: .12em; padding: 2px 8px;
+    border-radius: 9999px; font-weight: 600; text-align: center;
+  }
+  .s-ok   { background: rgba(120,220,160,.14); color:#9fe1b8; }
+  .s-low  { background: rgba(255,200,80,.14);  color:#ffc850; }
+  .s-zero { background: rgba(243,165,165,.14); color:#f3a5a5; }
+
   .empty {
     text-align: center;
     padding: 40px 12px;
@@ -396,6 +422,12 @@
     </form>
   </section>
 
+  <!-- stock -->
+  <section class="glass form" style="margin-top:20px;">
+    <h2>Stock</h2>
+    <div class="stock-grid" id="stockGrid"></div>
+  </section>
+
   <!-- table -->
   <section class="glass table-wrap">
     <h2>Orders</h2>
@@ -437,7 +469,59 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const STORAGE_KEY = 'auret_orders_v1';
+const STORAGE_KEY  = 'auret_orders_v1';
+const STOCK_KEY    = 'auret_stock_v1';
+
+const PRODUCTS = [
+  'Megamare','Imagination','Light Blue','Burberry Her',
+  'Roja Britannia','Coco Mademoiselle','Creed','God of Fire','Oh Kayali'
+];
+
+let stock = loadStock();
+
+function loadStock() {
+  try { return JSON.parse(localStorage.getItem(STOCK_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveStock() {
+  localStorage.setItem(STOCK_KEY, JSON.stringify(stock));
+}
+function getStock(p) { return (stock[p] == null) ? 0 : Number(stock[p]); }
+
+function renderStock() {
+  const grid = document.getElementById('stockGrid');
+  grid.innerHTML = '';
+  PRODUCTS.forEach(p => {
+    const qty = getStock(p);
+    const badgeClass = qty === 0 ? 's-zero' : qty < 5 ? 's-low' : 's-ok';
+    const badgeText  = qty === 0 ? 'Out of stock' : qty < 5 ? 'Low stock' : 'In stock';
+    const card = document.createElement('div');
+    card.className = 'glass stock-card';
+    card.innerHTML = `
+      <div class="stock-name" title="${escapeHtml(p)}">${escapeHtml(p)}</div>
+      <div class="stock-ctrl">
+        <button class="stock-btn" data-p="${escapeAttr(p)}" data-d="-1">−</button>
+        <input type="number" class="stock-num" min="0" value="${qty}" data-p="${escapeAttr(p)}"/>
+        <button class="stock-btn" data-p="${escapeAttr(p)}" data-d="1">+</button>
+      </div>
+      <div class="stock-badge ${badgeClass}">${badgeText} · ${qty}</div>`;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('.stock-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      const p = b.dataset.p, d = parseInt(b.dataset.d);
+      stock[p] = Math.max(0, getStock(p) + d);
+      saveStock(); renderStock();
+    });
+  });
+  grid.querySelectorAll('.stock-num').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const p = inp.dataset.p, v = Math.max(0, parseInt(inp.value) || 0);
+      stock[p] = v; saveStock(); renderStock();
+    });
+  });
+}
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const STATUS_DONE = 'Delivered';
 const STATUS_NEW = 'New';
@@ -758,6 +842,7 @@ document.getElementById('btnClear').addEventListener('click', () => {
 });
 
 render();
+renderStock();
 </script>
 </body>
 </html>
