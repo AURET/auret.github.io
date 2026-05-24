@@ -357,6 +357,9 @@
             <option>Roja Britannia</option>
             <option>Coco Mademoiselle</option>
             <option>L'JADID</option>
+            <option>Creed</option>
+            <option>God of Fire</option>
+            <option>Oh Kayali</option>
             <option value="__custom__">Other…</option>
           </select>
         </div>
@@ -550,7 +553,7 @@ function editOrder(id) {
   document.getElementById('fName').value = o.name;
   document.getElementById('fPhone').value = o.phone;
   document.getElementById('fCity').value = o.city;
-  const known = ['Megamare','Imagination','Light Blue','Burberry Her','Roja Britannia','Coco Mademoiselle',"L'JADID"];
+  const known = ['Megamare','Imagination','Light Blue','Burberry Her','Roja Britannia','Coco Mademoiselle',"L'JADID",'Creed','God of Fire','Oh Kayali'];
   if (known.includes(o.product)) {
     fProduct.value = o.product;
     fProductOtherWrap.style.display = 'none';
