@@ -278,9 +278,6 @@
   .stock i { width:6px; height:6px; border-radius:50%; flex:none; background:#46b06e; box-shadow:0 0 0 0 rgba(70,176,110,0.55); animation:stockpulse 2.6s ease-out infinite; }
   @keyframes stockpulse { 0%{box-shadow:0 0 0 0 rgba(70,176,110,0.55);} 70%{box-shadow:0 0 0 7px rgba(70,176,110,0);} 100%{box-shadow:0 0 0 0 rgba(70,176,110,0);} }
   @media (prefers-reduced-motion:reduce){ .stock i{ animation:none; } }
-  .stock.out i { background:#b5544e; animation:none; box-shadow:none; }
-  .order.disabled { background:var(--muted); border-color:var(--muted); opacity:0.5; pointer-events:none; }
-
   .dupeline { margin-top:7px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; letter-spacing:0.03em; color:var(--gold); }
   .inspby { font-size:8px; letter-spacing:0.13em; text-transform:uppercase; }
   .insp-pre { color:var(--gold-dk); }
@@ -484,6 +481,36 @@
       </div>
     </article>
 
+    <article class="card">
+      <div class="shot">
+        <img src="aventus.png" alt="AURET Creed" />
+      </div>
+      <div class="card-foot">
+        <span class="cname">Creed</span>
+        <span class="inspby"><span class="insp-pre">Inspiré de</span> <span class="insp-house">Creed Aventus</span></span>
+        <span class="cmeta">Natural Spray · Eau de Parfum · 10 ml</span>
+        <div class="buyrow">
+          <span class="stock"><i></i><span class="stock-txt">En stock</span></span>
+          <a class="order" data-name="Creed" href="#">Order</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot">
+        <img src="god-of-fire.png" alt="AURET God of Fire" />
+      </div>
+      <div class="card-foot">
+        <span class="cname">God of Fire</span>
+        <span class="inspby"><span class="insp-pre">Inspiré de</span> <span class="insp-house">Stéphane Humbert Lucas</span></span>
+        <span class="cmeta">Natural Spray · Eau de Parfum · 10 ml</span>
+        <div class="buyrow">
+          <span class="stock"><i></i><span class="stock-txt">En stock</span></span>
+          <a class="order" data-name="God of Fire" href="#">Order</a>
+        </div>
+      </div>
+    </article>
+
   </div>
 
   <div class="grid" data-grid="her" hidden>
@@ -544,6 +571,36 @@
         </div>
       </div>
     </article>
+
+    <article class="card">
+      <div class="shot">
+        <img src="god-of-fire.png" alt="AURET God of Fire" />
+      </div>
+      <div class="card-foot">
+        <span class="cname">God of Fire</span>
+        <span class="inspby"><span class="insp-pre">Inspiré de</span> <span class="insp-house">Stéphane Humbert Lucas</span></span>
+        <span class="cmeta">Natural Spray · Eau de Parfum · 10 ml</span>
+        <div class="buyrow">
+          <span class="stock"><i></i><span class="stock-txt">En stock</span></span>
+          <a class="order" data-name="God of Fire" href="#">Order</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot">
+        <img src="kayali-vanilla.png" alt="AURET Vanilla 28" />
+      </div>
+      <div class="card-foot">
+        <span class="cname">Vanilla 28</span>
+        <span class="inspby"><span class="insp-pre">Inspiré de</span> <span class="insp-house">Kayali</span></span>
+        <span class="cmeta">Natural Spray · Eau de Parfum · 10 ml</span>
+        <div class="buyrow">
+          <span class="stock"><i></i><span class="stock-txt">En stock</span></span>
+          <a class="order" data-name="Vanilla 28" href="#">Order</a>
+        </div>
+      </div>
+    </article>
   </div>
 
   <ul class="feats">
@@ -594,17 +651,17 @@
 
   const I18N = {
     fr: { sub:'Spray Naturel', tag:'Eau de Parfum · 10 ml · Pur & Naturel', him:'Pour Lui', her:'Pour Elle',
-          cmeta:'Spray Naturel · Eau de Parfum · 10 ml', order:'Commander', cur:'DH', stock:'En stock', stockOut:'Rupture de stock', insp:'Inspiré des plus grandes maisons de parfum', insp2:'Inspiré de',
+          cmeta:'Spray Naturel · Eau de Parfum · 10 ml', order:'Commander', cur:'DH', stock:'En stock', insp:'Inspiré des plus grandes maisons de parfum', insp2:'Inspiré de',
           soonH:'Parfums pour Elle', soonP:'De nouveaux parfums AURET pour femmes — bientôt disponibles.',
           f1:'Ingrédients Naturels', f2:'Haute Qualité', f3:'Tenue Longue Durée',
           msg:'Bonjour, je souhaite commander AURET ' },
     en: { sub:'Natural Spray', tag:'Eau de Parfum · 10 ml · Pure & Natural', him:'For Him', her:'For Her',
-          cmeta:'Natural Spray · Eau de Parfum · 10 ml', order:'Order Now', cur:'DH', stock:'In Stock', stockOut:'Out of Stock', insp:'Inspired by the finest fragrance houses', insp2:'Inspired by',
+          cmeta:'Natural Spray · Eau de Parfum · 10 ml', order:'Order Now', cur:'DH', stock:'In Stock', insp:'Inspired by the finest fragrance houses', insp2:'Inspired by',
           soonH:'Fragrances for Her', soonP:'New AURET scents for women — arriving very soon.',
           f1:'Natural Ingredients', f2:'Premium Quality', f3:'Long-Lasting Fragrance',
           msg:'Hello, I would like to order AURET ' },
     ar: { sub:'سبراي طبيعي', tag:'أو دو بارفان · 10 مل · نقي وطبيعي', him:'للرجال', her:'للنساء',
-          cmeta:'سبراي طبيعي · أو دو بارفان · 10 مل', order:'اطلب الآن', cur:'د.م', stock:'متوفّر', stockOut:'نفد المخزون', insp:'مستوحى من أرقى دور العطور العالمية', insp2:'مستوحى من',
+          cmeta:'سبراي طبيعي · أو دو بارفان · 10 مل', order:'اطلب الآن', cur:'د.م', stock:'متوفّر', insp:'مستوحى من أرقى دور العطور العالمية', insp2:'مستوحى من',
           soonH:'عطور للنساء', soonP:'عطور AURET جديدة للنساء — قريباً جداً.',
           f1:'مكوّنات طبيعية', f2:'جودة عالية', f3:'ثبات طويل الأمد',
           msg:'السلام، بغيت نطلب AURET ' }
@@ -613,8 +670,6 @@
   function setText(sel, val) {
     document.querySelectorAll(sel).forEach(function (e) { e.textContent = val; });
   }
-
-  const OUT_OF_STOCK = ['Megamare'];
 
   function setLang(lang) {
     const t = I18N[lang];
@@ -625,15 +680,8 @@
     setText('.cmeta', t.cmeta);
     setText('.order', t.order);
     document.querySelectorAll('.card').forEach(function (card) {
-      var od = card.querySelector('.order');
-      var out = od && OUT_OF_STOCK.indexOf(od.dataset.name) !== -1;
-      var st = card.querySelector('.stock');
-      if (st) {
-        st.classList.toggle('out', out);
-        var stx = st.querySelector('.stock-txt');
-        if (stx) stx.textContent = out ? t.stockOut : t.stock;
-      }
-      if (od) od.classList.toggle('disabled', out);
+      var st = card.querySelector('.stock-txt');
+      if (st) st.textContent = t.stock;
     });
     setText('.dupeline', t.insp);
     setText('.insp-pre', t.insp2);
@@ -684,8 +732,17 @@
       fr:{ tag:'Une brise méditerranéenne.', desc:'Pamplemousse vif et baies de genévrier sur une base boisée et musquée. Une fragrance fraîche et lumineuse, pensée pour les beaux jours.', top:'Pamplemousse, bergamote', heart:'Genévrier, poivre', base:'Bois, musc' },
       en:{ tag:'A Mediterranean breeze.', desc:'Crisp grapefruit and juniper berries over a clean woody, musky base. A fresh, cool fragrance made for warm days.', top:'Grapefruit, bergamot', heart:'Juniper, pepper', base:'Woods, musk' },
       ar:{ tag:'نسيم البحر الأبيض المتوسط.', desc:'جريب فروت منعش وتوت العرعر فوق قاعدة خشبية مسكية نظيفة. عطر منعش وبارد لأيام الصيف الدافئة.', top:'جريب فروت، برغموت', heart:'العرعر، الفلفل', base:'أخشاب، مسك' }
-    }
-,
+    },
+    'Creed': {
+      fr:{ tag:'La signature du succès.', desc:'Un parfum culte et viril — ananas juteux et cassis sur un cœur de bouleau fumé, rose et jasmin, posés sur une base de mousse de chêne, musc et ambre gris. Audacieux, raffiné et inoubliable.', top:'Ananas, cassis, pomme, bergamote', heart:'Bouleau, rose, jasmin, patchouli', base:'Musc, mousse de chêne, ambre gris, vanille' },
+      en:{ tag:'The signature of success.', desc:'A cult masculine fragrance — juicy pineapple and blackcurrant over a heart of smoky birch, rose and jasmine, settled on oakmoss, musk and ambergris. Bold, refined and unforgettable.', top:'Pineapple, blackcurrant, apple, bergamot', heart:'Birch, rose, jasmine, patchouli', base:'Musk, oakmoss, ambergris, vanilla' },
+      ar:{ tag:'توقيع النجاح.', desc:'عطر رجالي أيقوني — أناناس عصيري وكشمش أسود فوق قلب من البتولا المدخن والورد والياسمين، على قاعدة من طحلب البلوط والمسك والعنبر. جريء، راقٍ، لا يُنسى.', top:'أناناس، كشمش أسود، تفاح، برغموت', heart:'بتولا، ورد، ياسمين، باتشولي', base:'مسك، طحلب البلوط، عنبر، فانيليا' }
+    },
+    'God of Fire': {
+      fr:{ tag:'La flamme et l\'or.', desc:'Un oriental somptueux et puissant — safran précieux et encens fumé sur un cœur d\'oud, de cuir et de rose noire, posés sur une base d\'ambre, de vanille et de bois précieux. Royal, hypnotique et inoubliable.', top:'Safran, encens, poivre noir', heart:'Oud, cuir, rose noire', base:'Ambre, vanille, bois précieux' },
+      en:{ tag:'Flame and gold.', desc:'A lavish, powerful oriental — precious saffron and smoky incense over a heart of oud, leather and black rose, settled on amber, vanilla and noble woods. Regal, hypnotic and unforgettable.', top:'Saffron, incense, black pepper', heart:'Oud, leather, black rose', base:'Amber, vanilla, noble woods' },
+      ar:{ tag:'لهب وذهب.', desc:'عطر شرقي فخم وقوي — زعفران نفيس وبخور مدخّن فوق قلب من العود والجلد والورد الأسود، على قاعدة من العنبر والفانيليا والأخشاب النبيلة. ملكي، ساحر، لا يُنسى.', top:'زعفران، بخور، فلفل أسود', heart:'عود، جلد، ورد أسود', base:'عنبر، فانيليا، أخشاب نبيلة' }
+    },
     'Burberry Her': {
       fr:{ tag:'Fleurs et fruits pour elle.', desc:'Un bouquet délicat de fleurs fraîches et de fruits rouges sucrés sur une base douce de musc et de bois. Féminin, élégant et envoûtant.', top:'Framboise, myrtille', heart:'Jasmin, rose', base:'Musc, ambre, bois de santal' },
       en:{ tag:'Blooms and berries for her.', desc:'A delicate bouquet of fresh florals and sweet red berries over a soft musk and wood base. Feminine, elegant and captivating.', top:'Raspberry, blueberry', heart:'Jasmine, rose', base:'Musk, amber, sandalwood' },
@@ -700,6 +757,11 @@
       fr:{ tag:'L\'opulence d\'un parfum royal.', desc:'Une fragrance somptueuse et dorée — agrumes étincelants, cœur floral noble et fond ambré chaleureux. Majestueuse, raffinée et inoubliable.', top:'Bergamote, citron, ananas', heart:'Jasmin, rose, iris', base:'Ambre, mousse de chêne, vanille' },
       en:{ tag:'The opulence of a royal scent.', desc:'A sumptuous, golden fragrance — sparkling citrus, a noble floral heart and a warm amber base. Majestic, refined and unforgettable.', top:'Bergamot, lemon, pineapple', heart:'Jasmine, rose, iris', base:'Amber, oakmoss, vanilla' },
       ar:{ tag:'فخامة عطر ملكي.', desc:'عطر فاخر ذهبي — حمضيات متلألئة، قلب زهري نبيل، وقاعدة عنبرية دافئة. مهيب، أنيق، ولا يُنسى.', top:'برغموت، ليمون، أناناس', heart:'ياسمين، ورد، إيريس', base:'عنبر، طحلب البلوط، فانيليا' }
+    },
+    'Vanilla 28': {
+      fr:{ tag:'Le doux secret de la vanille.', desc:'Un gourmand chaleureux et envoûtant — vanille de Madagascar, caramel doré et sucre brun, sublimés par le tonka, le musc et l\'ambre. Délicieusement féminin, séduisant et addictif.', top:'Caramel, sucre brun, brandy', heart:'Vanille de Madagascar, fève tonka', base:'Musc, ambre, bois doré' },
+      en:{ tag:'The sweet secret of vanilla.', desc:'A warm, captivating gourmand — Madagascar vanilla, golden caramel and brown sugar, lifted by tonka, musk and amber. Deliciously feminine, alluring and addictive.', top:'Caramel, brown sugar, brandy', heart:'Madagascar vanilla, tonka bean', base:'Musk, amber, golden woods' },
+      ar:{ tag:'سر الفانيليا الحلو.', desc:'عطر گورماني دافئ وآسر — فانيليا مدغشقر، كراميل ذهبي وسكر بني، يتألق بلمسات التونكا والمسك والعنبر. أنثوي شهي، ساحر، لا يُقاوم.', top:'كراميل، سكر بني، براندي', heart:'فانيليا مدغشقر، فول التونكا', base:'مسك، عنبر، أخشاب ذهبية' }
     }
   };
 
@@ -734,9 +796,6 @@
     ord.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent('السلام، بغيت نطلب AURET ' + currentProduct);
     ord.target = '_blank';
     ord.rel = 'noopener';
-    const outOfStock = OUT_OF_STOCK.indexOf(currentProduct) !== -1;
-    ord.classList.toggle('disabled', outOfStock);
-    if (outOfStock) ord.textContent = t.stockOut;
   }
 
   function openModal(name, imgSrc, house) {
