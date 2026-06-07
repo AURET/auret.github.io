@@ -52,7 +52,7 @@
   body {
     background:var(--bg); color:var(--ink);
     font-family:'Cormorant Garamond','Georgia',serif; font-weight:400;
-    -webkit-font-smoothing:antialiased; overflow:hidden;
+    -webkit-font-smoothing:antialiased; overflow-y:auto;
   }
   ::selection { background:var(--gold); color:var(--bg); }
 
@@ -192,15 +192,15 @@
   /* ===== PRODUCT GRID ===== */
   .grid {
     position:relative; z-index:2;
-    display:flex; gap:26px; justify-content:center; align-items:stretch;
-    width:100%; max-width:1020px;
+    display:flex; flex-direction:column; gap:14px; align-items:center;
+    width:100%; max-width:700px;
   }
   .grid[hidden] { display:none; }
   .soon {
     display:flex; flex-direction:column; align-items:center; gap:14px;
     text-align:center; padding:70px 30px;
     border:1px solid var(--line); background:var(--panel);
-    width:100%; max-width:1020px;
+    width:100%; max-width:700px;
   }
   .soon svg { width:30px; height:30px; }
   .soon h3 {
@@ -208,17 +208,17 @@
   }
   .soon p { font-size:13px; letter-spacing:0.04em; color:var(--muted); }
   .card {
-    flex:1 1 0; max-width:310px; display:flex; flex-direction:column;
+    flex:none; width:100%; display:flex; flex-direction:row; align-items:stretch;
     border:1px solid var(--line); background:var(--panel);
     transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
   }
   .card:hover {
-    transform:translateY(-7px); border-color:var(--gold);
-    box-shadow:0 24px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,120,0.12);
+    transform:translateX(6px); border-color:var(--gold);
+    box-shadow:0 8px 32px rgba(0,0,0,0.35), 0 0 0 1px rgba(201,168,120,0.12);
   }
   .shot {
-    position:relative; height:clamp(300px,52vh,442px); overflow:hidden;
-    background:var(--bg);
+    position:relative; width:170px; min-width:170px; height:170px; overflow:hidden;
+    background:var(--bg); flex:none;
   }
   .shot img {
     position:absolute; inset:0; width:100%; height:100%;
@@ -246,18 +246,24 @@
   .ph svg { width:22px; height:22px; }
 
   .card-foot {
-    display:flex; flex-direction:column; gap:9px;
-    padding:16px 18px 18px;
+    display:flex; flex-direction:column; gap:7px;
+    padding:14px 16px 14px; flex:1; justify-content:center;
+  }
+  .price {
+    font-family:'Cormorant Garamond',serif; font-size:24px;
+    color:var(--gold); font-weight:500; letter-spacing:0.05em;
   }
   .card-foot .cname {
-    font-family:'Cormorant Garamond',serif; font-size:23px; color:var(--ink); line-height:1;
+    font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--ink); line-height:1;
   }
   .card-foot .cmeta {
     font-size:8.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted);
   }
   .buyrow {
-    display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:2px;
+    display:flex; align-items:center; gap:10px; margin-top:4px; flex-wrap:wrap;
   }
+  .buyrow .stock { flex:none; }
+  .buyrow .price { flex:none; margin-left:auto; }
   .order {
     flex:none; position:relative; overflow:hidden;
     border:1px solid var(--gold); background:var(--gold); color:var(--bg);
@@ -302,9 +308,9 @@
     body { overflow-y:auto; }
     .frame { inset:12px; }
     .page { padding:54px 24px; justify-content:flex-start; }
-    .grid { flex-direction:column; align-items:center; }
-    .card { width:100%; max-width:360px; }
-    .shot { height:clamp(340px,62vh,520px); }
+    .grid { max-width:100%; }
+    .card { width:100%; }
+    .shot { width:130px; min-width:130px; height:130px; }
     .feats { flex-direction:column; gap:14px; align-items:center; margin-top:22px; }
   }
   @media (prefers-reduced-motion:reduce) {
@@ -419,6 +425,50 @@
   </div>
 
   <div class="grid" data-grid="him">
+
+    <article class="card">
+      <div class="shot">
+        <div class="ph">
+          <span class="ph-brand">AURET</span>
+          <span class="ph-name">Hayaati Al Maleky</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a878" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-7 0-12 8-17-1 9-3 14-8 17Z"/><path d="M12 21c0-6-1-10-6-13"/></svg>
+          <span class="ph-note">Add hayaati.jpg</span>
+        </div>
+        <img src="ChatGPT Image Jun 7, 2026, 03_56_04 PM.png" alt="AURET Hayaati Al Maleky" onerror="this.classList.add('missing')" style="object-position:top;" />
+      </div>
+      <div class="card-foot">
+        <span class="cname">Hayaati Al Maleky</span>
+        <span class="inspby"><span class="insp-pre">Inspiré de</span> <span class="insp-house">Paco Rabanne Phantom</span></span>
+        <span class="cmeta">Natural Spray · Eau de Parfum · 10 ml</span>
+        <div class="buyrow">
+          <span class="stock"><i></i><span class="stock-txt">En stock</span></span>
+          <a class="order" data-name="Hayaati Al Maleky" href="#">Order</a>
+        </div>
+        <p class="dupeline"></p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot">
+        <div class="ph">
+          <span class="ph-brand">AURET</span>
+          <span class="ph-name">Voux Turquoise Emir</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a878" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-7 0-12 8-17-1 9-3 14-8 17Z"/><path d="M12 21c0-6-1-10-6-13"/></svg>
+          <span class="ph-note">Add emerald.jpg</span>
+        </div>
+        <img src="ChatGPT Image Jun 7, 2026, 03_38_55 PM.png" alt="AURET Voux Turquoise Emir" onerror="this.classList.add('missing')" style="object-position:top;" />
+      </div>
+      <div class="card-foot">
+        <span class="cname">Voux Turquoise Emir</span>
+        <span class="inspby"><span class="insp-pre">Inspiré de</span> <span class="insp-house">Urba Pura</span></span>
+        <span class="cmeta">Natural Spray · Eau de Parfum · 10 ml</span>
+        <div class="buyrow">
+          <span class="stock"><i></i><span class="stock-txt">En stock</span></span>
+          <a class="order" data-name="Voux Turquoise Emir" href="#">Order</a>
+        </div>
+        <p class="dupeline"></p>
+      </div>
+    </article>
 
     <article class="card">
       <div class="shot">
@@ -650,7 +700,7 @@
 <script>
   /* ==== Replace with your WhatsApp number (country code, no +, no spaces) ==== */
   const PHONE = '212718154423';
-  const OUT_OF_STOCK = ['Megamare', 'Light Blue'];
+  const OUT_OF_STOCK = ['Megamare', 'Light Blue', 'Imagination', 'God of Fire'];
 
   const I18N = {
     fr: { sub:'Spray Naturel', tag:'Eau de Parfum · 10 ml · Pur & Naturel', him:'Pour Lui', her:'Pour Elle',
@@ -756,6 +806,16 @@
       en:{ tag:'Flame and gold.', desc:'A lavish, powerful oriental — precious saffron and smoky incense over a heart of oud, leather and black rose, settled on amber, vanilla and noble woods. Regal, hypnotic and unforgettable.', top:'Saffron, incense, black pepper', heart:'Oud, leather, black rose', base:'Amber, vanilla, noble woods' },
       ar:{ tag:'لهب وذهب.', desc:'عطر شرقي فخم وقوي — زعفران نفيس وبخور مدخّن فوق قلب من العود والجلد والورد الأسود، على قاعدة من العنبر والفانيليا والأخشاب النبيلة. ملكي، ساحر، لا يُنسى.', top:'زعفران، بخور، فلفل أسود', heart:'عود، جلد، ورد أسود', base:'عنبر، فانيليا، أخشاب نبيلة' }
     },
+    'Hayaati Al Maleky': {
+      fr:{ tag:'La vie dans chaque goutte.', desc:'Un fruité frais et lumineux — pomme verte croquante et bergamote éclatante s\'ouvrent sur un cœur de jasmin et de rose, posés sur une base douce de musc blanc, de bois de santal et d\'ambre chaud. Vif, séduisant et inoubliable.', top:'Pomme verte, bergamote, citrus', heart:'Jasmin, rose, fleurs blanches', base:'Musc blanc, bois de santal, ambre' },
+      en:{ tag:'Life in every drop.', desc:'A luminous fruity fresh — crisp green apple and sparkling bergamot unfold over a heart of jasmine and rose, resting on a soft base of white musk, sandalwood and warm amber. Vibrant, seductive and unforgettable.', top:'Green apple, bergamot, citrus', heart:'Jasmine, rose, white flowers', base:'White musk, sandalwood, amber' },
+      ar:{ tag:'الحياة في كل رشّة.', desc:'عطر فواكه منعش ومشرق — تفاح أخضر مقرمش وبرغموت متألق يتفتحان فوق قلب من الياسمين والورد، على قاعدة ناعمة من المسك الأبيض وخشب الصندل والعنبر الدافئ. حيوي، آسر، لا يُنسى.', top:'تفاح أخضر، برغموت، حمضيات', heart:'ياسمين، ورد، أزهار بيضاء', base:'مسك أبيض، خشب الصندل، عنبر' }
+    },
+    'Voux Turquoise Emir': {
+      fr:{ tag:'La fraîcheur d\'un émir.', desc:'Un accord citronné vif et pur — orange lumineuse, bergamote et zestes frais sur un cœur aquatique et musqué, posé sur une base soyeuse d\'ambre doux et de bois légers. Minimal, moderne et majestueux.', top:'Orange, bergamote, zestes de citron', heart:'Aquatique, musc frais, thé blanc', base:'Ambre doux, bois de cèdre, vétiver' },
+      en:{ tag:'The freshness of an emir.', desc:'A vivid, pure citrus accord — luminous orange, bergamot and fresh zest over an aquatic, musky heart, resting on a silky base of smooth amber and light woods. Minimal, modern and majestic.', top:'Orange, bergamot, lemon zest', heart:'Aquatic, fresh musk, white tea', base:'Smooth amber, cedarwood, vetiver' },
+      ar:{ tag:'انتعاش الأمير.', desc:'تركيبة حمضية حية ونقية — برتقال مشرق وبرغموت وقشر الحمضيات الطازج فوق قلب مائي ومسكي، على قاعدة حريرية من العنبر الناعم والأخشاب الخفيفة. بسيط، عصري، وملكي.', top:'برتقال، برغموت، قشر الليمون', heart:'مائي، مسك منعش، شاي أبيض', base:'عنبر ناعم، خشب الأرز، فيتيفر' }
+    },
     'Burberry Her': {
       fr:{ tag:'Fleurs et fruits pour elle.', desc:'Un bouquet délicat de fleurs fraîches et de fruits rouges sucrés sur une base douce de musc et de bois. Féminin, élégant et envoûtant.', top:'Framboise, myrtille', heart:'Jasmin, rose', base:'Musc, ambre, bois de santal' },
       en:{ tag:'Blooms and berries for her.', desc:'A delicate bouquet of fresh florals and sweet red berries over a soft musk and wood base. Feminine, elegant and captivating.', top:'Raspberry, blueberry', heart:'Jasmine, rose', base:'Musk, amber, sandalwood' },
@@ -853,6 +913,13 @@
   });
 
   setLang('fr');
+
+  document.querySelectorAll('.buyrow').forEach(function(row) {
+    var priceEl = document.createElement('span');
+    priceEl.className = 'price';
+    priceEl.textContent = '30 DH';
+    row.insertBefore(priceEl, row.querySelector('.order'));
+  });
 </script>
 </body>
 </html>
